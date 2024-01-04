@@ -188,6 +188,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 ```
 
+#? .condainit does not exist - 
 Next, open .condainit with `vi ~/.condainit` and paste the lines above in. 
 **Make sure that the `>>> conda initialize >>>` lines are deleted or commented out in the .bashrc file**.
 Save this file. 
@@ -211,7 +212,9 @@ If you are in the headnode, it wil show h00 in the command line.
    ``` sruntaco.sh [c00] ```
 4. To initialize conda, type into the command line:
    ``` source ~/.condainit ```
-5. To activate conda, type into the command line:
+
+ #? I Don't think this is needed
+6. To activate conda, type into the command line:
    ``` conda activate ```
 
 You should now have conda activated. 
@@ -278,6 +281,7 @@ By following these good practices, you can make your workflow more efficient and
 ## 10. Install Seurat and Mamba with Conda 
 
 We can install R and Seurat via Conda. To do this, we can input these commands into the command line, 
+#? do not run this in base env
 
 ```
 conda config --add channels defaults --add channels bioconda --add channels conda-forge 
@@ -285,7 +289,7 @@ conda install -y mamba
 mamba install -y r-seurat 
 conda install -y r-seurat
 ```
-
+#? Is it necessary to run both conda install and mmba install?
 
 The latest Seurat and dependent R will be installed automatically. To verify the installation of Seurat, run below command. 
 
