@@ -158,7 +158,7 @@ Following the prompt instructions, we can install Miniconda3 in a local director
 ## 6. Initializing Conda
 
 To initialize conda use the following command in the command line: 
-
+#? This is not necessary since the last step of the installer already runs conda init
 ```
 ~/miniconda3/bin/conda init
 ```
