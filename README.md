@@ -106,8 +106,30 @@ The hard drive of the first directory is RAID 6 with a redundant copy of files, 
 The pathway of the first directory is: /storage/chen/home
 The pathway of the second directory is: /storage/chentemp
 If there are large files that you are working with, please store them under chentemp. 
- 
-## 5.2 To install Conda on the Taco server 
+
+## 5.2 Entering a node
+**IMPORTANT: NEVER ACTIVATE CONDA (or do anything other than very simple tasks) IN THE HEAD NODE!**
+
+You can check whether you are in the headnode by looking at the command line. 
+The command line appears like this: 
+[u2400000@mhgcp-**h00** directoryname]
+If you are in the headnode, it wil show h00 in the command line. 
+
+**To create a job in a node:**
+
+1. type ``` hls ``` into the command line
+2. Check which nodes are available by looking at the available memory as well as available CPUs.
+3. To change the node and create an interactive job, into the command line type in:
+   ``` sruntaco.sh [NODENAME] ```
+   For example, if you wish to enter the r01 node, type in:
+   ``` sruntaco.sh r01 ```
+
+Note that you are now inside an interactive job in the `r01` node, of the short partition. When you are done with whatever you're doing, you need to kill the interactive job, to release the node's resources so someone else can use them. To do this, just type `exit` -- you should see that you have returned to the head node `h00`.
+
+FYI: When you are done with using taco, you need to quit the connection to the server. To do this, when you're in the head node, run `exit` and you'll be returned to your regular terminal.
+
+
+## 5.3 To install Conda on the Taco server 
  
 To install conda on the Taco server, we need to first download a Conda Linux installer from the below link. 
 https://docs.conda.io/en/latest/miniconda.html 
@@ -125,7 +147,7 @@ In order to edit the file with vim, type this into the command line:
 vi ~/.bashrc
 ```
 
-After opening the conf file with vim, copy the following settings:
+After opening the conf file with vim, copy and paste the following settings into it (either using your normal copy/paste CTRL-C/V, or certain terminals paste when you right-click):
 
 ```
 # User specific aliases and functions
@@ -148,28 +170,20 @@ To exit vim, [esc], :wq
 After configuring your BASHRC, run the following commands below into the command line to install conda. 
 
 ```
-mkdir -p ~/tools/miniconda3 && cd ~/tools/miniconda3 
-wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh 
+wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
 bash Miniconda3-py39_4.9.2-Linux-x86_64.sh
+# hold down enter, then answer yes when prompted
+# when asked where to install, type /storage/chen/home/YOUR_USER_ID/tools/miniconda3
+# this will create the folder and install miniconda to it
+# finally, answer "yes" to run conda init
 ```
+After installation, we need to reopen the terminal session (open a new window, or re-login to the server) so that Conda paths will be recognized.
 
-Following the prompt instructions, we can install Miniconda3 in a local directory. After installation, we need to reopen the terminal session (open a new window, or re-login to the server) so that Conda paths will be recognized. By default, the Conda environment is not activated, but we need to activate one to install new utilities. The “base” environment is the default environment of Conda. 
 
-## 6. Initializing Conda
+## 6. Setting up Conda
+The last step of the installer should have run conda init (if you still need to run it, type `~/tools/miniconda/bin/conda init`).
 
-To initialize conda use the following command in the command line: 
-#? This is not necessary since the last step of the installer already runs conda init
-```
-~/miniconda3/bin/conda init
-```
-
-Now, we must update .bashrc. Open the .bashrc file using the below command in the command line. 
-
-```
-vi ~/.bashrc
-```
-
-Then, copy and cut out the following lines:
+Now, we must update .bashrc. Open the .bashrc file using `vim .bashrc`. Then, copy and cut out the following lines 
 
 ```
 # >>> conda initialize >>>
@@ -187,37 +201,11 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 ```
+(you can do this the usual way with CTRL-C, or by typing `v` for visual editing, `j` repeatedly to select down to where the line ends, then `x` to cut. `p` will paste.)
 
-#? .condainit does not exist - 
-Next, open .condainit with `vi ~/.condainit` and paste the lines above in. 
-**Make sure that the `>>> conda initialize >>>` lines are deleted or commented out in the .bashrc file**.
-Save this file. 
+Next, type `vim ~/.condainit` to create a new file, then paste the lines above in. Save this file (`:wq`).
 
-
-## 7. Activating Conda
-**IMPORTANT: NEVER ACTIVATE CONDA IN THE HEAD NODE!**
-
-You can check whether you are in the headnode by looking at the command line. 
-The command line appears like this: 
-[u2400000@mhgcp-**h00** directoryname]
-If you are in the headnode, it wil show h00 in the command line. 
-
-**To switch to another node:**
-
-1. type ``` hls ``` into the command line
-2. Check which nodes are available by looking at the available memory as well as available CPUs.
-3. To change the node, into the command line type in:
-   ``` sruntaco.sh [NODENAME] ```
-   For example, if you wish to enter the c00 node, type in:
-   ``` sruntaco.sh [c00] ```
-4. To initialize conda, type into the command line:
-   ``` source ~/.condainit ```
-
- #? I Don't think this is needed
-6. To activate conda, type into the command line:
-   ``` conda activate ```
-
-You should now have conda activated. 
+To activate conda, type into the command line: `source ~/.condainit`. You should see `(base)` appear in front of your terminal user.
 
 
 
