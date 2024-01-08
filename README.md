@@ -124,7 +124,7 @@ If you are in the headnode, it wil show h00 in the command line.
    For example, if you wish to enter the r01 node, type in:
    ``` sruntaco.sh r01 ```
 
-Note that you are now inside an interactive job in the `r01` node, of the short partition. When you are done with whatever you're doing, you need to kill the interactive job, to release the node's resources so someone else can use them. To do this, just type `exit` -- you should see that you have returned to the head node `h00`.
+Note that you are now inside an interactive job in the `r01` node, of the interactive partition. When you are done with whatever you're doing, you need to kill the interactive job, to release the node's resources so someone else can use them. To do this, just type `exit` -- you should see that you have returned to the head node `h00`.
 
 FYI: When you are done with using taco, you need to quit the connection to the server. To do this, when you're in the head node, run `exit` and you'll be returned to your regular terminal.
 
@@ -266,31 +266,16 @@ conda env create -f environment.yml
 By following these good practices, you can make your workflow more efficient and avoid common pitfalls when working with Conda.
 
 
-## 10. Install Seurat and Mamba with Conda 
+## 10. Install Mamba with Conda 
 
-We can install R and Seurat via Conda. To do this, we can input these commands into the command line, 
-#? do not run this in base env
+In your base environment, add the following channels and install mamba (a faster way to install packages; it solves environment conflicts way faster)
+
 
 ```
 conda config --add channels defaults --add channels bioconda --add channels conda-forge 
 conda install -y mamba 
-mamba install -y r-seurat 
-conda install -y r-seurat
 ```
-#? Is it necessary to run both conda install and mmba install?
-
-The latest Seurat and dependent R will be installed automatically. To verify the installation of Seurat, run below command. 
-
-On its own, when you type R, the R command prompt will open up and will be different from the Linux command line. 
-
-```
-R 
-library(Seurat)
-```
-
-
-
-No error message suggests that Seurat is correctly installed, and can be imported into the R session correctly. 
+You'll see a ton of lines pop up, just let em do their thing.
 
 
 ## 11.  Several commonly used Linux commands- familiarize and practice with these
